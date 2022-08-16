@@ -1,15 +1,12 @@
 <template>
     <div>
         <div class="card dark:bg-gray-800 dark:text-white bg-white text-gray-900 shadow-xl">
-            <figure>
-                <img :src="profile.pic" class="w-full max-h-fit" alt="" />
-            </figure>
             <div class="card-body">
                 <div class="flex justify-between">
                     <h2 class="card-title">
                         <InertiaLink :href="route('user-profile', { id: profile.username })">
                             <div class="avatar">
-                                <div class="w-16 rounded-full">
+                                <div class="w-16 mask mask-hexagon">
                                     <img :src="profile.pic" />
                                 </div>
                             </div>
@@ -49,7 +46,10 @@
                         Unfollow
                     </InertiaLink>
                 </div>
-                <p class="mt-2 mb-2">{{ profile.about }}</p>
+                <p class="mt-3 text-left" v-if="profile.about === null">
+                    No bio.
+                </p>
+                <p class="mt-3 text-left">{{ profile.about }}</p>
                 <div class="flex mt-3">
                     <div class="flex justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mt-1 mr-1" width="18" height="18"

@@ -13,14 +13,18 @@
                             </vue-plyr>
                         </div>
 
-                        <figure v-if="post.image !== null"><img :src="post.image" class="w-full" alt="" /></figure>
+                        <figure v-if="post.image !== null">
+                            <InertiaLink :href="route('show-post', { id: post.id })">
+                                <img :src="post.image" class="w-full" alt="" />
+                            </InertiaLink>
+                        </figure>
 
                         <div class="card-body">
                             <div class="flex justify-between">
                                 <h3 class="card-title">
                                     <InertiaLink :href="route('user-profile', { id: post.username })">
                                         <div class="avatar">
-                                            <div class="w-12 rounded-full">
+                                            <div class="w-14 mask mask-hexagon">
                                                 <img :src="post.avatar" />
                                             </div>
                                         </div>

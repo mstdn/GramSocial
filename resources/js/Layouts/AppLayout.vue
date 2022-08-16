@@ -96,6 +96,11 @@ const logout = () => {
                   Public
                 </JetNavLink>
               </li>
+               <li>
+                <JetNavLink :href="route('explore')" :active="route().current('explore')">
+                  Explore
+                </JetNavLink>
+              </li>
               <li>
                 <JetNavLink :href="route('community')" :active="route().current('community')">
                   Community
@@ -135,7 +140,7 @@ const logout = () => {
 
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-              <div class="w-10 rounded-full">
+              <div class="w-10 mask mask-hexagon">
                 <img :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
               </div>
             </label>

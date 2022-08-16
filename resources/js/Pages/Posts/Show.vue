@@ -58,7 +58,7 @@ function destroy(id) {
                             <h3 class="card-title">
                                 <InertiaLink :href="route('user-profile', { id: post.username })">
                                     <div class="avatar">
-                                        <div class="w-12 rounded-full">
+                                        <div class="w-14 mask mask-hexagon">
                                             <img :src="post.avatar" />
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@ function destroy(id) {
         </section>
 
         <section>
-            <div v-if="post.replies !== null" class="py-2 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div v-if="post.replies !== null" class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 
 
                 <div v-for="reply in post.replies" :key="reply.id" class="mx-auto max-w-screen-sm lg:mb-16 mb-8">
@@ -193,7 +193,7 @@ function destroy(id) {
                         <div class="card-body">
                             <h3 class="card-title bg-white text-gray-900 dark:bg-gray-800 dark:text-white">
                                 <div class="avatar">
-                                    <div class="w-12 rounded-full">
+                                    <div class="w-14 mask mask-hexagon">
                                         <InertiaLink :href="route('user-profile', { id: reply.username })">
                                             <img :src="reply.avatar" />
                                         </InertiaLink>
