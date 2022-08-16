@@ -41,9 +41,10 @@ class HomeController extends Controller
                 'likes'         =>  $post->likers()->count(),
                 'replycount'    =>  $post->replies->count(),
                 'downloadready' =>  $post->converted_for_downloading_at,
-                'hlsready'      =>  $post->converted_for_streaming_at,
+                //'hlsready'      =>  $post->converted_for_streaming_at,
                 'video'         =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.mp4'),
-                'hls'           =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8')
+                //'hls'           =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8'),
+                'image'          =>  '/storage/' . $post->image,
             ]),
             'filters' => $request->only(['search'])
         ]);

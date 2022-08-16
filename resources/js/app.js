@@ -13,7 +13,7 @@ import Vue3VideoPlayer from "@cloudgeek/vue3-video-player";
 import "@cloudgeek/vue3-video-player/dist/vue3-video-player.css";
 
 const appName =
-    window.document.getElementsByTagName("title")[0]?.innerText || "Goldfish";
+    window.document.getElementsByTagName("title")[0]?.innerText || "Gram";
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

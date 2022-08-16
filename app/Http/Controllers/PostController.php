@@ -40,9 +40,10 @@ class PostController extends Controller
                 'delete'        =>  Auth::user()->id === $post->user_id || Auth::user()->id === 1,
                 'replycount'    =>  $post->replies->count(),
                 'downloadready' =>  $post->converted_for_downloading_at,
-                'hlsready'      =>  $post->converted_for_streaming_at,
+                'image'         =>  '/storage/' . $post->image,
+                // 'hlsready'      =>  $post->converted_for_streaming_at,
                 'video'         =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.mp4'),
-                'hls'           =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8')
+                // 'hls'           =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8')
             ])
         ]);
     }
@@ -66,10 +67,10 @@ class PostController extends Controller
                 'avatar'            =>  $post->user->getProfilePhotoUrlAttribute(),
                 'time'              =>  $post->created_at->diffForHumans(),
                 'username'          =>  $post->user->username,
-                'downloadready' =>  $post->converted_for_downloading_at,
-                'hlsready'      =>  $post->converted_for_streaming_at,
-                'video'         =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.mp4'),
-                'hls'           =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8'),
+                'downloadready'     =>  $post->converted_for_downloading_at,
+                // 'hlsready'          =>  $post->converted_for_streaming_at,
+                'video'             =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.mp4'),
+                // 'hls'               =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8'),
                 'status'            =>  $post->status,
                 'isliked'           =>  $liked,
                 'likes'             =>  $post->likers()->count(),
@@ -87,45 +88,64 @@ class PostController extends Controller
                                             'link'      =>  '@' . $reply->user->username,
                                             'delete'    =>  $deleteReply,
                                         ]),
-                'replycount'            => $post->replies->count()    
+                'replycount'            =>  $post->replies->count(),
+                'image'                 =>  '/storage/' . $post->image,
                 ]
             ]);
     }
 
     public function store(Request $request)
     {
-        $attributes = $request->validate([
+        $post = $request->validate([
             'description'   =>  'required|min:1|max:500',
             'status'        =>  'required',
             'nsfw'          =>  'nullable|boolean',
-            'video'         =>  'required|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,video/mpeg,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:10240',
+            'image'         => ['nullable','mimes:jpg,jpeg,png,gif','max:500048'],
+            'video'         =>  'nullable|file|mimetypes:video/x-ms-asf,video/x-flv,video/mp4,video/mpeg,application/x-mpegURL,video/MP2T,video/3gpp,video/quicktime,video/x-msvideo,video/x-ms-wmv,video/avi|max:10240',
         ]);
-
-        // if($request->hasFile('files')) 
-        // {
-        //    $attributes['files'] = $request->file('files')->store('uploads/images/', 'public');
-        // }
-
-        $attributes['user_id'] = auth()->user()->id;
-
+        
+        $post['user_id'] = auth()->id();
         $storeURL = Str::random(16);
 
-        // $attributes['video'] = $request->file('uploads/' . $request['user_id'] . '/' . 'videos/' . $storeURL, 'public');
-        
-        $attributes = Post::create([
-            'user_id'       =>  auth()->user()->id,
-            'status'        =>  $request->status,
-            'is_nsfw'       =>  $request->nsfw,
-            'disk'          =>  'public',
-            'original_name' =>  $request->file('video')->getClientOriginalName(),
-            'path'          =>  $request->file('video')->store('uploads/' . $request['user_id'] . '/' . 'videos/' . $storeURL, 'public'),
-            'description'   =>  $request->description
-        ]);
+        if($request->hasFile('image')) 
+        {
+            $post = Post::create([
+                'user_id'       =>  auth()->id(),
+                'status'        =>  $request->status,
+                'is_nsfw'       =>  $request->nsfw,
+                'image'         =>  $request->file('image')->store('uploads/images', 'public'),
+                'description'   =>  $request->description
+            ]);
 
-        $this->dispatch(new ConvertVideoForStreaming($attributes));
-        // $this->dispatch(new ConvertVideoForDownloading($attributes));
+            return back();
+        }
+
+        if($request->hasFile('video')) 
+        {
+            $post = Post::create([
+                'user_id'       =>  auth()->id(),
+                'status'        =>  $request->status,
+                'is_nsfw'       =>  $request->nsfw,
+                'disk'          =>  'public',
+                'original_name' =>  $request->file('video')->getClientOriginalName(),
+                'path'          =>  $request->file('video')->store('uploads/' . $request['user_id'] . '/' . 'videos/' . $storeURL, 'public'),
+                'description'   =>  $request->description
+            ]);
+            // $this->dispatch(new ConvertVideoForStreaming($attributes));
+            $this->dispatch(new ConvertVideoForDownloading($post));
+
+            return back();
+        } else {
+            $post = Post::create([
+                'user_id'       =>  auth()->id(),
+                'status'        =>  $request->status,
+                'is_nsfw'       =>  $request->nsfw,
+                'description'   =>  $request->description
+            ]);
+
+            return back();
+        }
         
-        return back();
     }
 
     // Delete item

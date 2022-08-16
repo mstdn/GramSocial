@@ -55,20 +55,22 @@ let props = defineProps({
             </div>
         </section>
 
-        <section class="bg-gray-900 min-h-screen">
-            <div class="mx-auto my-8 px-4">
+        <section class="dark:bg-gray-900 bg-gray-100 min-h-screen">
+            <div class="mx-auto py-8 px-4">
                 <div className="masonry sm:masonry-sm md:masonry-md">
-                    <div v-for="post in posts.data" :key="post.id" className="rounded-lg m-4 break-inside">
-                        <div class="mx-auto max-w-screen-sm max-h-fit lg:mb-16">
-                            <div class="card bg-gray-800 shadow-xl">
-                                <div v-if="post.hlsready === null">
-                                    <vue3-video-player :src="post.video">
-                                    </vue3-video-player>
+                    <div v-for="post in posts.data" :key="post.id" className="rounded-lg break-inside">
+                        <div class="mx-auto max-w-screen-sm max-h-fit mb-8">
+                            <div class="card dark:bg-gray-800 bg-white dark:text-white text-gray-900 shadow-xl">
+                                <div v-if="post.downloadready !== null">
+                                    <vue-plyr :options="options">
+                                        <video controls crossorigin playsinline>
+                                            <source size="720" :src="post.video" type="video/mp4" />
+                                        </video>
+                                    </vue-plyr>
                                 </div>
-                                <div v-else>
-                                    <vue3-video-player :core="HLSCore" :src="post.hls">
-                                    </vue3-video-player>
-                                </div>
+
+                                <figure v-if="post.image !== null"><img :src="post.image" class="w-full" alt="" />
+                                </figure>
                                 <div class="card-body">
                                     <div class="flex justify-between">
                                         <h3 class="card-title">

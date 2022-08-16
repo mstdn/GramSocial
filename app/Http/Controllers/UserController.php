@@ -98,7 +98,8 @@ class UserController extends Controller
                         'status'            =>  $post->status,
                         'isliked'           =>  $liked,
                         'likes'             =>  $post->likers()->count(),
-                        'replycount'        =>  $post->replies->count()
+                        'replycount'        =>  $post->replies->count(),
+                        'image'         =>  'storage/' . $post->image,
                     ])
             ],
         ]);

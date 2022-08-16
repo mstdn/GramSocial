@@ -1,32 +1,31 @@
 <template>
     <div>
-        <div class="py-2 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        <div class="py-4 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div v-if="posts !== null">
                 <div v-for="post in posts.data" :key="post.id" class="mx-auto max-w-screen-sm max-h-fit lg:mb-16 mb-8">
 
                     <div class="card dark:bg-gray-800 bg-white dark:text-white text-gray-900 shadow-xl">
+                        <div v-if="post.downloadready !== null">
+                            <vue-plyr :options="options">
+                                <video controls crossorigin playsinline>
+                                    <source size="720" :src="post.video" type="video/mp4" />
+                                </video>
+                            </vue-plyr>
+                        </div>
 
-                        <div v-if="post.hlsready === null">
-                            <vue3-video-player :src="post.video">
-                            </vue3-video-player>
-                        </div>
-                        <div v-else>
-                            <vue3-video-player :core="HLSCore" :src="post.hls">
-                            </vue3-video-player>
-                        </div>
+                        <figure v-if="post.image !== null"><img :src="post.image" class="w-full" alt="" /></figure>
 
                         <div class="card-body">
-
                             <div class="flex justify-between">
                                 <h3 class="card-title">
                                     <InertiaLink :href="route('user-profile', { id: post.username })">
                                         <div class="avatar">
-                                            <div class="w-14 rounded-full">
+                                            <div class="w-12 rounded-full">
                                                 <img :src="post.avatar" />
                                             </div>
                                         </div>
                                     </InertiaLink>
-                                    <div class="ml-3">
+                                    <div class="ml-1 pb-1">
                                         <InertiaLink :href="route('user-profile', { id: post.username })">
                                             {{ post.username }}
                                         </InertiaLink>
@@ -39,9 +38,12 @@
                                         </div>
                                     </div>
                                 </h3>
-                                <div class="badge badge-primary badge-outline mt-5">{{ post.status }}</div>
+                                <div class="badge badge-primary badge-outline mt-5">
+                                    <InertiaLink :href="route('show-post', { id: post.id })">
+                                        {{ post.status }}
+                                    </InertiaLink>
+                                </div>
                             </div>
-
                             <p class="mt-3">
                                 <InertiaLink :href="route('show-post', { id: post.id })">
                                     {{ post.description }}

@@ -7,7 +7,7 @@
             <div class="py-4">
                 
                 <div class="form-control py-2">
-                    <textarea v-model="form.reply" id="reply" name="reply" class="textarea textarea-primary" placeholder="Write a reply (max 500 characters)"></textarea>
+                    <textarea v-model="form.reply" id="reply" name="reply" class="textarea textarea-primary dark:bg-gray-800 dark:text-white" placeholder="Write a reply (max 500 characters)"></textarea>
                 <p class="mt-2 text-sm text-gray-100">{{ characterCount }}/500</p>
                 <div
                     v-if="form.errors.reply"

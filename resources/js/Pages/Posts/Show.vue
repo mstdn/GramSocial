@@ -45,14 +45,14 @@ function destroy(id) {
             <div class="py-4 px-4 mx-auto max-w-screen-xl">
                 <div class="mx-auto max-w-screen-sm lg:mb-16 mb-8">
                     <div class="card bg-white dark:bg-gray-800 shadow dark:text-white text-gray-900">
-                        <div v-if="post.hlsready === null">
-                            <vue3-video-player :src="post.video">
-                            </vue3-video-player>
+                        <div v-if="post.downloadready !== null">
+                            <vue-plyr :options="options">
+                                <video controls crossorigin playsinline data-poster="poster.jpg">
+                                    <source size="720" :src="post.video" type="video/mp4" />
+                                </video>
+                            </vue-plyr>
                         </div>
-                        <div v-else>
-                            <vue3-video-player :core="HLSCore" :src="post.hls">
-                            </vue3-video-player>
-                        </div>
+                        <figure v-if="post.image !== null"><img :src="post.image" class="w-full" alt="" /></figure>
                         <div class="card-body">
 
                             <h3 class="card-title">
@@ -91,7 +91,6 @@ function destroy(id) {
                                         </svg>
                                         Like ({{ post.likes }})
                                     </InertiaLink>
-
                                     <InertiaLink v-if="post.isliked === true" preserveScroll method="post" as="button"
                                         type="button" class="btn btn-outline btn-success btn-sm gap-2"
                                         :href="route('like', { id: post.id })">
@@ -106,6 +105,18 @@ function destroy(id) {
 
                                         ({{ post.likes }})
                                     </InertiaLink>
+                                    <button v-if="$page.props.auth.user === null"
+                                        class="btn btn-outline btn-success btn-sm gap-2">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path
+                                                d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3">
+                                            </path>
+                                        </svg>
+                                        {{ post.likes }} Likes
+                                    </button>
                                 </div>
                                 <div class="flex justify-end">
                                     <InertiaLink class="btn btn-sm btn-secondary gap-2 mr-2"
@@ -119,7 +130,6 @@ function destroy(id) {
                                         </svg>
                                         {{ post.replycount }}
                                     </InertiaLink>
-
                                     <button class="btn btn-sm btn-accent gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -150,7 +160,8 @@ function destroy(id) {
                     <div class="py-4">
 
                         <div class="form-control py-2">
-                            <textarea v-model="form.reply" id="reply" name="reply" class="textarea textarea-primary"
+                            <textarea v-model="form.reply" id="reply" name="reply"
+                                class="textarea textarea-primary dark:bg-gray-800 dark:text-white"
                                 placeholder="Write a reply (max 500 characters)"></textarea>
                             <p class="mt-2 text-sm text-gray-100">{{ characterCount }}/500</p>
                             <div v-if="form.errors.reply" v-text="form.errors.reply" class="text-red-500 mt-1"></div>
@@ -178,11 +189,9 @@ function destroy(id) {
 
                 <div v-for="reply in post.replies" :key="reply.id" class="mx-auto max-w-screen-sm lg:mb-16 mb-8">
 
-                    <div class="card bg-base-100 shadow">
+                    <div class="card bg-white text-gray-900 dark:bg-gray-800 dark:text-white shadow">
                         <div class="card-body">
-
-                            <h3 class="card-title">
-
+                            <h3 class="card-title bg-white text-gray-900 dark:bg-gray-800 dark:text-white">
                                 <div class="avatar">
                                     <div class="w-12 rounded-full">
                                         <InertiaLink :href="route('user-profile', { id: reply.username })">
@@ -201,15 +210,15 @@ function destroy(id) {
                                     </div>
                                 </div>
                             </h3>
-
                             <p class="mt-3">{{ reply.reply }}</p>
-                            <div class="divider"></div>
-
-                            <div class="card-actions justify-end mt-2">
-                                <button v-if="reply.delete" @click="destroy(reply.id)" class="btn btn-ghost btn-sm"
-                                    method="post" type="submit">
-                                    Delete
-                                </button>
+                            <div v-if="reply.delete">
+                                <div class="divider"></div>
+                                <div class="card-actions justify-end mt-2">
+                                    <button v-if="reply.delete" @click="destroy(reply.id)" class="btn btn-ghost btn-sm"
+                                        method="post" type="submit">
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
 
                         </div>

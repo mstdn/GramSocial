@@ -18,8 +18,10 @@ Route::get('@{user:username}', [UserController::class, 'show'])->name('user-prof
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('show-post');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
+    Route::middleware('optimizeImages')->group(function () {
+        Route::post('/home', [PostController::class, 'store']);
+    });
     Route::get('/home', [TimelineController::class, 'home'])->name('home');
-    Route::post('/home', [PostController::class, 'store']);
     Route::get('/posts', [PostController::class, 'index']);
     Route::get('/community', [UserController::class, 'index'])->name('community');
     Route::get('/public', [TimelineController::class, 'public'])->name('public-timeline');
