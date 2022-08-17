@@ -22,6 +22,7 @@
                         bg-transparent
                         border-0
                         focus:outline-none
+                        border-none focus:ring-0 
                         resize-none
                     " placeholder="What's happening?"></textarea>
                     </div>
