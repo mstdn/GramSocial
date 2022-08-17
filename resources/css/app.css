@@ -2,27 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-    @variants responsive {
-        .masonry {
-            column-gap: 1.5em;
-            column-count: 1;
-        }
-        .masonry-sm {
-            column-gap: 1.5em;
-            column-count: 2;
-        }
-        .masonry-md {
-            column-gap: 1.5em;
-            column-count: 3;
-        }
-        .break-inside {
-            break-inside: avoid;
-        }
-
-    }
-}
-
 
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 

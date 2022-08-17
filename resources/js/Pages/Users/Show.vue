@@ -31,12 +31,12 @@ let props = defineProps({
                     </Tab>
                     <Tab v-slot="{ selected }" as="template">
                         <button :class="[selected ? 'btn btn-primary' : 'btn btn-primary btn-active']">
-                            Liked Posts
+                            Liked
                         </button>
                     </Tab>
                     <Tab v-slot="{ selected }" as="template">
                         <button :class="[selected ? 'btn btn-primary' : 'btn btn-primary btn-active']">
-                            Shared Posts
+                            Shared
                         </button>
                     </Tab>
                 </TabList>

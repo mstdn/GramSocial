@@ -93,25 +93,32 @@
 
 
                     <p class="p-2 text-gray-400 text-sm">{{ characterCount }}/500</p>
-                    
+
                 </div>
 
-                <div class="w-full flex items-top p-1 text-gray-900 pl-14 justify-between">
-                <div class="flex justify-start">
-                    <select v-model="form.status" name="status" id="status"
-                        class="select select-bordered w-min max-w-xs select-sm mt-1">
-                        <option disabled value="">Status</option>
-                        <option value="public" selected>Public</option>
-                        <option value="unlisted">Unlisted</option>
-                        <option value="private">Private</option>
-                    </select>
-                    <label class="label cursor-pointer">
-                        <span class="label-text text-gray-900 dark:text-white ml-2 mr-2">NSFW?</span>
-                        <input v-model="form.nsfw" type="checkbox" name="nsfw" id="nsfw" class="checkbox" />
-                    </label>
-                </div>
-                <div class="flex justify-end">
-                <button type="submit" :disabled="form.processing" class="
+                <div class="w-full flex items-top p-1 text-gray-900 sm:pl-14 pl-8 justify-between">
+                    <div class="flex justify-start">
+                        <select v-model="form.status" name="status" id="status"
+                            class="select select-bordered w-min max-w-xs select-sm mt-1">
+                            <option disabled value="">Status</option>
+                            <option value="public" selected>Public</option>
+                            <option value="unlisted">Unlisted</option>
+                            <option value="private">Private</option>
+                        </select>
+                        <label class="label cursor-pointer">
+                            <span class="label-text text-gray-900 dark:text-white ml-2 mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </span>
+                            <input v-model="form.nsfw" type="checkbox" name="nsfw" id="nsfw" class="checkbox checkbox-xs" />
+                        </label>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" :disabled="form.processing" class="
                         bg-red-400
                         hover:bg-red-500
                         text-white
@@ -120,10 +127,11 @@
                         px-4
                         ml-auto
                         mr-1
+                        
                         ">
-                        <span class="font-bold text-sm">Publish</span>
-                    </button>
-                </div>
+                            <span class="font-bold text-sm">Publish</span>
+                        </button>
+                    </div>
                 </div>
                 <div v-if="form.errors.image" v-text="form.errors.image" class="text-red-500 mt-1"></div>
                 <div v-if="form.errors.video" v-text="form.errors.video" class="text-red-500 mt-1"></div>

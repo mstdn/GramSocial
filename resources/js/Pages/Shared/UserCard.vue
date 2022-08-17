@@ -1,12 +1,11 @@
 <template>
     <div>
-        <div class="card dark:bg-gray-800 dark:text-white bg-white text-gray-900">
             <div class="card-body">
                 <div class="flex justify-between">
                     <h2 class="card-title">
                         <InertiaLink :href="route('user-profile', { id: profile.username })">
                             <div class="avatar">
-                                <div class="w-16 rounded-full">
+                                <div class="w-10 rounded-full">
                                     <img :src="profile.pic" />
                                 </div>
                             </div>
@@ -22,7 +21,7 @@
                     </h2>
                     <InertiaLink
                         v-if="$page.props.auth.user !== null && profile.isFollowing === false && profile.followbutton === false"
-                        preserveScroll method="post" as="button" type="button" class="btn btn-primary gap-2"
+                        preserveScroll method="post" as="button" type="button" class="btn btn-primary btn-sm gap-2"
                         :href="route('follow', { id: profile.username })">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -35,7 +34,7 @@
                     </InertiaLink>
                     <InertiaLink
                         v-if="$page.props.auth.user !== null && profile.isFollowing === true && profile.followbutton === false"
-                        preserveScroll method="post" as="button" type="button" class="btn btn-secondary gap-2"
+                        preserveScroll method="post" as="button" type="button" class="btn btn-secondary btn-sm gap-2"
                         :href="route('follow', { id: profile.username })">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -63,7 +62,7 @@
                     </InertiaLink>
                 </div>
             </div>
-        </div>
+
     </div>
 </template>
 <script setup>

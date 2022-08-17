@@ -34,9 +34,6 @@ watch(
       Community ({{ usercount }} users)
     </template>
 
-    <section class="dark:bg-gray-900 bg-gray-100 text-gray-900 dark:text-white min-h-screen pb-4">
-      <div class="px-4 mx-auto max-w-screen-sm">
-
         <input v-model="search" type="text" class="input input-bordered input-info w-full mt-4"
           placeholder="Search.." />
 
@@ -44,9 +41,7 @@ watch(
           <UserCard :profile="user" />
         </div>
 
-      </div>
       <Pagination class="mt-8" :links="users.links" />
-    </section>
 
   </AppLayout>
 </template>
