@@ -106,7 +106,7 @@
                         <option value="private">Private</option>
                     </select>
                     <label class="label cursor-pointer">
-                        <span class="label-text text-gray-900 ml-2 mr-2">NSFW?</span>
+                        <span class="label-text text-gray-900 dark:text-white ml-2 mr-2">NSFW?</span>
                         <input v-model="form.nsfw" type="checkbox" name="nsfw" id="nsfw" class="checkbox" />
                     </label>
                 </div>

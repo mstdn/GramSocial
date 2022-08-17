@@ -7,6 +7,7 @@ import { ref, watch } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import Pagination from '../Shared/Pagination.vue';
 import Empty from '../Shared/Empty.vue';
+import Compose from '../Shared/Compose.vue';
 
 let props = defineProps({
     posts: Object,
@@ -54,20 +55,13 @@ watch(
             </div>
         </template>
 
-        <section class="mt-4 mb-4">
-            <div class="px-4 mx-auto max-w-screen-sm">
-                <Post />
-            </div>
-        </section>
-
-        <section class="dark:bg-gray-900 dark:text-white bg-gray-100 text-gray-900">
-            <div v-if="posts.total === 0">
-                <Empty />
-            </div>
-            <Cards v-bind:posts="posts" />
-
-            <Pagination :links="posts.links" />
-        </section>
+        <!--<Post />-->
+        <Compose />
+        <div v-if="posts.total === 0">
+            <Empty />
+        </div>
+        <Cards v-bind:posts="posts" />
+        <Pagination :links="posts.links" />
 
     </AppLayout>
 </template>
