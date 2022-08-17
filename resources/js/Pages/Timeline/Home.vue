@@ -9,6 +9,7 @@ import { Inertia } from "@inertiajs/inertia";
 import Pagination from '../Shared/Pagination.vue';
 import PostModal from '../Shared/PostModal.vue';
 import Empty from '../Shared/Empty.vue';
+import Compose from '../Shared/Compose.vue';
 
 let props = defineProps({
     posts: Object,
@@ -35,13 +36,8 @@ watch(
 <template>
     <AppLayout title="Home">
         <template #header>
-            <div class="flex justify-between">
-                <div class="items-start pt-4">
-                    Home
-                </div>
-                <div class="items-end">
-                    <div class="dropdown dropdown-left">
-                        <label tabindex="0" class="btn btn-primary">Search</label>
+            <div class="dropdown dropdown-bottom">
+                        <label tabindex="0" class="btn btn-primary btn-sm">Search</label>
                         <div tabindex="0"
                             class="dropdown-content card card-compact w-64 p-2 shadow bg-gray-900 text-white">
                             <div class="card-body">
@@ -51,23 +47,18 @@ watch(
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
         </template>
 
-        <section class="mt-4 mb-4">
-                <Post />
-        </section>
 
-        <section class="dark:bg-gray-900 dark:text-white bg-gray-100 text-gray-900">
+            <!--<Post />-->
+            <Compose />
+
             <div v-if="posts.total === 0">
                 <Empty />
             </div>
 
             <Cards v-bind:posts="posts" />
-
             <Pagination :links="posts.links" />
-        </section>
 
     </AppLayout>
 </template>

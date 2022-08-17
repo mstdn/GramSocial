@@ -68,9 +68,10 @@
                     </div>
 
                 </div>
-                <div v-if="form.errors.image" v-text="form.errors.image" class="text-red-500 mt-1"></div>
-                <div v-if="form.errors.video" v-text="form.errors.video" class="text-red-500 mt-1"></div>
-                <div v-if="form.errors.status" v-text="form.errors.status" class="text-red-500 mt-1"></div>
+                <div v-if="form.errors.image" v-text="form.errors.image" class="text-red-500 ml-3"></div>
+                <div v-if="form.errors.video" v-text="form.errors.video" class="text-red-500 ml-3"></div>
+                <div v-if="form.errors.status" v-text="form.errors.status" class="text-red-500 ml-3"></div>
+                <div v-if="form.errors.description" v-text="form.errors.description" class="text-red-500 ml-3"></div>
             </div>
             <div class="modal-action pb-10">
                 <div class="justify-start">
@@ -122,7 +123,7 @@ let form = useForm({
 let submit = () => {
     form.post("/home", {
         forceFormData: true,
-        onSuccess: () => form.reset("description", "video", "nsfw"),
+        onSuccess: () => form.reset("description", "video", "nsfw", "image"),
     });
 };
 </script>
