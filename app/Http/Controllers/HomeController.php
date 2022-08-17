@@ -44,6 +44,7 @@ class HomeController extends Controller
                 //'hlsready'      =>  $post->converted_for_streaming_at,
                 'video'         =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.mp4'),
                 //'hls'           =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8'),
+                'hasimage'          => $post->image,
                 'image'          =>  '/storage/' . $post->image,
             ]),
             'filters' => $request->only(['search'])

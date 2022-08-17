@@ -13,7 +13,7 @@
                             </vue-plyr>
                         </div>
 
-                        <figure v-if="post.image !== null">
+                        <figure v-if="post.hasimage !== null">
                             <InertiaLink :href="route('show-post', { id: post.id })">
                                 <img :src="post.image" class="w-full" alt="" />
                             </InertiaLink>

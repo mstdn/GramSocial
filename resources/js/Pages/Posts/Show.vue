@@ -52,7 +52,11 @@ function destroy(id) {
                                 </video>
                             </vue-plyr>
                         </div>
-                        <figure v-if="post.image !== null"><img :src="post.image" class="w-full" alt="" /></figure>
+                        <figure v-if="post.hasimage !== null">
+                            <InertiaLink :href="route('show-post', { id: post.id })">
+                                <img :src="post.image" class="w-full" alt="" />
+                            </InertiaLink>
+                        </figure>
                         <div class="card-body">
 
                             <h3 class="card-title">

@@ -90,6 +90,7 @@ class PostController extends Controller
                                         ]),
                 'replycount'            =>  $post->replies->count(),
                 'image'                 =>  '/storage/' . $post->image,
+                'hasimage'              =>  $post->image,
                 ]
             ]);
     }

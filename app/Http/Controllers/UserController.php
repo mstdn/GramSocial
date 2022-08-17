@@ -58,7 +58,7 @@ class UserController extends Controller
             $isFollowing = Auth::user()->isFollowing($user);
             $followedBy = Auth::user()->isFollowedBy($user);
             $followButton = Auth::user()->id === $user->id;
-            $liked = $post->isLikedBy(auth()->user());
+            $liked =  auth()->user()->hasLiked($post);
         } else {
             $isFollowing = null;
             $followedBy = null;
@@ -92,14 +92,15 @@ class UserController extends Controller
                         'time'              =>  $post->created_at->diffForHumans(),
                         'username'          =>  $post->user->username,
                         'downloadready'     =>  $post->converted_for_downloading_at,
-                        'hlsready'          =>  $post->converted_for_streaming_at,
+                        // 'hlsready'          =>  $post->converted_for_streaming_at,
                         'video'             =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.mp4'),
-                        'hls'               =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8'),
+                        // 'hls'               =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8'),
                         'status'            =>  $post->status,
                         'isliked'           =>  $liked,
                         'likes'             =>  $post->likers()->count(),
                         'replycount'        =>  $post->replies->count(),
-                        'image'         =>  'storage/' . $post->image,
+                        'image'             =>  'storage/' . $post->image,
+                        'hasimage'          => $post->image,
                     ])
             ],
         ]);
