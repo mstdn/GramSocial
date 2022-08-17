@@ -49,7 +49,6 @@ watch(
                     </div>
         </template>
 
-
             <!--<Post />-->
             <Compose />
 

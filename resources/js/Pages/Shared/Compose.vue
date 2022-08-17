@@ -30,8 +30,8 @@
                 <div class="w-full flex items-top p-2 text-white pl-14">
                     <label>
                         <div class="
-                            text-blue-400
-                            hover:bg-blue-50
+                            text-red-400
+                            hover:bg-red-50
                             dark:hover:bg-dim-800
                             rounded-full
                             p-2
@@ -52,8 +52,8 @@
 
                     <label>
                         <div class="
-                                text-blue-400
-                                hover:bg-blue-50
+                                text-red-400
+                                hover:bg-red-50
                                 dark:hover:bg-dim-800
                                 rounded-full
                                 p-2
@@ -76,8 +76,8 @@
 
 
                     <a href="#" class="
-                        text-blue-400
-                        hover:bg-blue-50
+                        text-red-400
+                        hover:bg-red-50
                         dark:hover:bg-dim-800
                         rounded-full
                         p-2
@@ -112,8 +112,8 @@
                 </div>
                 <div class="flex justify-end">
                 <button type="submit" :disabled="form.processing" class="
-                        bg-blue-400
-                        hover:bg-blue-500
+                        bg-red-400
+                        hover:bg-red-500
                         text-white
                         rounded-full
                         py-1

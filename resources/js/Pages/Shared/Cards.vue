@@ -92,8 +92,8 @@
                                         text-gray-800
                                         dark:text-white
                                         text-xs text-gray-400
-                                        hover:text-blue-400
-                                        dark:hover:text-blue-400
+                                        hover:text-red-400
+                                        dark:hover:text-red-400
                                         transition
                                         duration-350
                                         ease-in-out
@@ -204,8 +204,8 @@
                                 text-gray-800
                                 dark:text-white
                                 text-xs text-gray-400
-                                hover:text-blue-400
-                                dark:hover:text-blue-400
+                                hover:text-red-400
+                                dark:hover:text-red-400
                                 transition
                                 duration-350
                                 ease-in-out
