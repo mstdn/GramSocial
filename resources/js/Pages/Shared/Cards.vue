@@ -14,6 +14,7 @@
                 ease-in-out
                 pb-4
                 border-l border-r
+                min-w-fit
                         ">
                     <div v-if="post.downloadready !== null">
                         <vue-plyr :options="options">
