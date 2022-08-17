@@ -20,6 +20,7 @@ class UserController extends Controller
             $isFollowing = Auth::user()->isFollowing($user);
             $followedBy = Auth::user()->isFollowedBy($user);
             $followButton = Auth::user()->id === $user->id;
+            
         } else {
             $isFollowing = null;
             $followedBy = null;
@@ -28,7 +29,7 @@ class UserController extends Controller
 
         return Inertia::render('Users/Community', [
             'users' => User::query()
-                ->with('followings')
+                ->with('followings', 'likes', 'posts')
                 ->when($request->input('search'), function ($query, $search) {
                     $query->where('username', 'like', "%{$search}%");
                 })
@@ -58,11 +59,18 @@ class UserController extends Controller
             $isFollowing = Auth::user()->isFollowing($user);
             $followedBy = Auth::user()->isFollowedBy($user);
             $followButton = Auth::user()->id === $user->id;
-            $liked =  auth()->user()->hasLiked($post);
+            // $liked =  auth()->hasLiked($post);
+            // $liked = $user->hasLiked($post);
         } else {
             $isFollowing = null;
             $followedBy = null;
             $followButton = null;
+            // $liked = null;
+        }
+
+        if (auth()->user()) {
+            $liked = auth()->user()->hasLiked($post);
+        } else {
             $liked = null;
         }
 
@@ -100,7 +108,7 @@ class UserController extends Controller
                         'likes'             =>  $post->likers()->count(),
                         'replycount'        =>  $post->replies->count(),
                         'image'             =>  'storage/' . $post->image,
-                        'hasimage'          => $post->image,
+                        'hasimage'          =>  $post->image,
                     ])
             ],
         ]);

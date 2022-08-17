@@ -38,6 +38,7 @@ class ExploreController extends Controller
                     // 'hlsready'      =>  $post->converted_for_streaming_at,
                     'video'         =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.mp4'),
                     // 'hls'           =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8'),
+                    'hasimage'       =>  $post->image,
                 ]),
             'postcount'         =>  Post::latest()->count(),
         ]);

@@ -41,6 +41,7 @@ class PostController extends Controller
                 'replycount'    =>  $post->replies->count(),
                 'downloadready' =>  $post->converted_for_downloading_at,
                 'image'         =>  '/storage/' . $post->image,
+                'hasimage'              =>  $post->image,
                 // 'hlsready'      =>  $post->converted_for_streaming_at,
                 'video'         =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.mp4'),
                 // 'hls'           =>  Storage::disk('public')->url('uploads/' . $post->user->id . '/' . 'videos/' . $post->id . '.m3u8')

@@ -17,64 +17,59 @@ let props = defineProps({
         </template>
 
         <section class="dark:bg-gray-900 dark:text-white bg-gray-100 text-gray-900">
-            <div class="py-10 px-4 mx-auto max-w-screen-xl lg:py-10 lg:px-6">
-                <div class="mx-auto max-w-screen-sm text-center">
-                    <ProfileCard :profile="profile" />
-                </div>
-            </div>
+            <ProfileCard :profile="profile" />
         </section>
 
         <section class="dark:bg-gray-900 dark:text-white bg-gray-100 text-gray-900">
-            <div class="px-4 mx-auto max-w-screen-sm lg:py-10 lg:px-6">
-                <TabGroup>
-                    <TabList
-                        class="mx-auto text-center flex space-x-1 rounded-xl bg-gray-200 dark:bg-gray-800 p-2">
-                        <Tab v-slot="{ selected }" as="template">
-                            <button :class="[selected ? 'btn btn-primary' : 'btn btn-primary btn-active']">
-                                Posts
-                            </button>
-                        </Tab>
-                        <Tab v-slot="{ selected }" as="template">
-                            <button :class="[selected ? 'btn btn-primary' : 'btn btn-primary btn-active']">
-                                Liked Posts
-                            </button>
-                        </Tab>
-                        <Tab v-slot="{ selected }" as="template">
-                            <button :class="[selected ? 'btn btn-primary' : 'btn btn-primary btn-active']">
-                                Shared Posts
-                            </button>
-                        </Tab>
-                    </TabList>
-                    <TabPanels>
-                        <TabPanel>
-                            <div v-if="profile.posts.total === 0">
-                                <Empty />
+
+            <TabGroup>
+                <TabList class="mx-auto text-center flex space-x-1 bg-gray-200 dark:bg-gray-800 p-2">
+                    <Tab v-slot="{ selected }" as="template">
+                        <button :class="[selected ? 'btn btn-primary' : 'btn btn-primary btn-active']">
+                            Posts
+                        </button>
+                    </Tab>
+                    <Tab v-slot="{ selected }" as="template">
+                        <button :class="[selected ? 'btn btn-primary' : 'btn btn-primary btn-active']">
+                            Liked Posts
+                        </button>
+                    </Tab>
+                    <Tab v-slot="{ selected }" as="template">
+                        <button :class="[selected ? 'btn btn-primary' : 'btn btn-primary btn-active']">
+                            Shared Posts
+                        </button>
+                    </Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel>
+                        <div v-if="profile.posts.total === 0">
+                            <Empty />
+                        </div>
+                        <Cards v-bind:posts="profile.posts" />
+                        <Pagination :links="profile.posts.links" />
+
+                    </TabPanel>
+                    <TabPanel>
+                        <div class="px-4 mx-auto max-w-screen-xl">
+                            <div class="mx-auto max-w-screen-sm text-center p-10">
+
+                                Soon.
+
                             </div>
-                            <Cards v-bind:posts="profile.posts" />
-                            <Pagination :links="profile.posts.links" />
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <div class="px-4 mx-auto max-w-screen-xl lg:px-6">
+                            <div class="mx-auto max-w-screen-sm text-center p-10">
 
-                        </TabPanel>
-                        <TabPanel>
-                            <div class="px-4 mx-auto max-w-screen-xl lg:px-6">
-                                <div class="mx-auto max-w-screen-sm text-center p-10">
+                                Soon.
 
-                                    Soon.
-
-                                </div>
                             </div>
-                        </TabPanel>
-                        <TabPanel>
-                            <div class="px-4 mx-auto max-w-screen-xl lg:px-6">
-                                <div class="mx-auto max-w-screen-sm text-center p-10">
+                        </div>
+                    </TabPanel>
+                </TabPanels>
+            </TabGroup>
 
-                                    Soon.
-
-                                </div>
-                            </div>
-                        </TabPanel>
-                    </TabPanels>
-                </TabGroup>
-            </div>
         </section>
 
     </AppLayout>

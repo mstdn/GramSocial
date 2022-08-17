@@ -8,6 +8,8 @@ import JetNavLink from "@/Jetstream/NavLink.vue";
 import Mobile from '../Pages/Shared/Mobile.vue';
 import MobileNav from "../Pages/Shared/MobileNav.vue";
 import FlashMessage from "../Pages/Shared/FlashMessage.vue";
+import Left from '../Pages/Shared/Left.vue';
+import Right from '../Pages/Shared/Right.vue';
 
 defineProps({
   title: String,
@@ -31,190 +33,59 @@ const logout = () => {
   Inertia.post(route("logout"));
 };
 </script>
-
 <template>
-  <div>
+    <div>
+        <Head :title="title" />
 
-    <Head :title="title" />
+        <div class="container mx-auto h-screen">
+            <div class="flex flex-row justify-center">
 
-    <JetBanner />
+                <Left />
 
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <nav class="navbar sticky top-0 z-50 bg-white dark:bg-gray-900 border-gray-200 px-4 lg:px-6 py-2.5">
-        <div class="navbar-start">
-          <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost btn-circle">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#dc2626">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
-              </svg>
-            </label>
-            <ul v-if="$page.props.auth.user === null" tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow text-gray-800 bg-white dark:bg-gray-900
-                dark:text-white rounded-box w-40">
+                <!-- Middle -->
+                <div class="w-full sm:w-600 h-screen">
 
-              <li>
-                <JetNavLink :href="route('login')" :active="route().current('login')">
-                  Login
-                </JetNavLink>
-              </li>
+                    <div v-if="$page.props.flash.message" class="alert">
+                        {{ $page.props.flash.message }}
+                    </div>
 
-              <li>
-                <JetNavLink :href="route('about')" :active="route().current('about')">
-                  About
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink :href="route('privacy')" :active="route().current('privacy')">
-                  Privacy Policy
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink :href="route('terms')" :active="route().current('terms')">
-                  Terms of Use
-                </JetNavLink>
-              </li>
-            </ul>
-            <ul v-else tabindex="0" class="
-                menu menu-compact
-                dropdown-content
-                mt-3
-                p-2
-                shadow
-                bg-gray-100
-                text-gray-900
-                dark:bg-gray-800
-                dark:text-white
-                rounded-box
-                w-40
-              ">
-              <li>
-                <JetNavLink :href="route('home')" :active="route().current('home')">
-                  Home
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink :href="route('public-timeline')" :active="route().current('public-timeline')">
-                  Public
-                </JetNavLink>
-              </li>
-               <li>
-                <JetNavLink :href="route('explore')" :active="route().current('explore')">
-                  Explore
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink :href="route('community')" :active="route().current('community')">
-                  Community
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink :href="route('about')" :active="route().current('about')">
-                  About
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink :href="route('privacy')" :active="route().current('privacy')">
-                  Privacy Policy
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink :href="route('terms')" :active="route().current('terms')">
-                  Terms of Use
-                </JetNavLink>
-              </li>
-            </ul>
-          </div>
+                    <!-- Header -->
+                    <div v-if="$slots.header"
+                        class="flex justify-between items-center border-b px-4 py-3 sticky top-0 bg-white dark:bg-dim-900 border-l border-r border-gray-200 dark:border-gray-700">
+                        <!-- Title -->
+                        <h2 class="text-gray-800 dark:text-gray-100 font-bold font-sm">
+                            <slot name="header" />
+                        </h2>
+                        <!-- /Title -->
+
+                        <!-- Custom Timeline -->
+                        <div>
+                            <a href="javascript:void(0)"
+                                onclick="document.querySelector('html').classList.toggle('dark')">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5 text-blue-400" fill="currentColor">
+                                    <g>
+                                        <path
+                                            d="M22.772 10.506l-5.618-2.192-2.16-6.5c-.102-.307-.39-.514-.712-.514s-.61.207-.712.513l-2.16 6.5-5.62 2.192c-.287.112-.477.39-.477.7s.19.585.478.698l5.62 2.192 2.16 6.5c.102.306.39.513.712.513s.61-.207.712-.513l2.16-6.5 5.62-2.192c.287-.112.477-.39.477-.7s-.19-.585-.478-.697zm-6.49 2.32c-.208.08-.37.25-.44.46l-1.56 4.695-1.56-4.693c-.07-.21-.23-.38-.438-.462l-4.155-1.62 4.154-1.622c.208-.08.37-.25.44-.462l1.56-4.693 1.56 4.694c.07.212.23.382.438.463l4.155 1.62-4.155 1.622zM6.663 3.812h-1.88V2.05c0-.414-.337-.75-.75-.75s-.75.336-.75.75v1.762H1.5c-.414 0-.75.336-.75.75s.336.75.75.75h1.782v1.762c0 .414.336.75.75.75s.75-.336.75-.75V5.312h1.88c.415 0 .75-.336.75-.75s-.335-.75-.75-.75zm2.535 15.622h-1.1v-1.016c0-.414-.335-.75-.75-.75s-.75.336-.75.75v1.016H5.57c-.414 0-.75.336-.75.75s.336.75.75.75H6.6v1.016c0 .414.335.75.75.75s.75-.336.75-.75v-1.016h1.098c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </a>
+
+                        </div>
+                        <!-- /Custom Timeline -->
+                    </div>
+                    <!-- /Header -->
+
+
+                    <slot />
+
+                </div>
+                <!-- /Middle -->
+
+                <Right />
+
+            </div>
         </div>
-
-        <div class="navbar-center">
-          <Link :href="route('landing')" class="btn btn-ghost text-primary dark:text-white normal-case text-xl">{{
-              $page.props.appName
-          }}
-          </Link>
-        </div>
-
-        <div v-if="$page.props.auth.user === null" class="navbar-end">
-          <Link :href="route('register')" class="btn btn-primary">Register</Link>
-        </div>
-
-        <div v-else class="navbar-end">
-
-          <div class="dropdown dropdown-end">
-            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-              <div class="w-10 mask mask-hexagon">
-                <img :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
-              </div>
-            </label>
-            <ul tabindex="0" class="
-                menu menu-compact
-                dropdown-content
-                mt-3
-                p-2
-                shadow
-                bg-gray-100
-                text-gray-900
-                dark:bg-gray-800
-                dark:text-white
-                rounded-box
-                w-36
-              ">
-              <li>
-                <JetNavLink :href="route('user-profile', { id: $page.props.user.username })">
-                  Profile
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink :href="route('profile.show')">
-                  Settings
-                </JetNavLink>
-              </li>
-              <li>
-                <JetNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
-                  API Tokens
-                </JetNavLink>
-              </li>
-              <div class="border-t border-gray-700" />
-              <li>
-                <!-- Authentication -->
-                <form @submit.prevent="logout">
-                  <JetDropdownLink as="button">
-                    Log Out
-                  </JetDropdownLink>
-                </form>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-      </nav>
-
-      <FlashMessage />
-
-      <!-- Page Heading -->
-      <header v-if="$slots.header" class="
-          border-gray-200
-          px-4
-          lg:px-6
-          py-2.5
-          dark:bg-gray-700
-          bg-gray-200
-          shadow
-        ">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h3 class="font-semibold text-xl text-gray-900 dark:text-white leading-tight">
-            <slot name="header" />
-          </h3>
-        </div>
-      </header>
-
-      <!-- Page Content -->
-      <main class="dark:bg-gray-900 bg-gray-100">
-        <slot />
-      </main>
 
     </div>
-
-    <!--<MobileNav class="pt-10" v-if="$page.props.auth.user !== null" />-->
-
-  </div>
-
 </template>
